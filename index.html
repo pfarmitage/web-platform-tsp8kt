@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Word Puzzler</title>
+    <meta charset="UTF-8">
+    <title>Word Render</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h1 id="theme"></h1>
-    <div id="letter-tiles"></div>
-    <input type="text" id="word-input" placeholder="Enter a word">
-    <button onclick="submitWord()">Submit</button>
-    <p id="score">Score: 0</p>
-    <ul id="word-list"></ul>
+    <div id="header">
+      <h1 id="game-title">Word Render</h1>
+      <div id="theme-container">
+        <span id="theme-label">Theme:</span>
+        <span id="theme-name"></span>
+      </div>
+      <div id="score-container">
+        <span id="score-label">Score:</span>
+        <span id="score">0</span>
+      </div>
+    </div>
+    <div id="letter-tiles-container">
+      <div id="letter-tiles"></div>
+    </div>
+    <div id="word-form-container">
+      <form id="word-form">
+        <label for="word-input">Enter a word:</label>
+        <input type="text" id="word-input" name="word-input">
+        <button type="submit" id="submit-button">Submit</button>
+        <button id="give-up-button" type="button">Give Up</button>
+      </form>
+    </div>
+    <div id="word-list-container">
+      <h2 id="word-list-label">Words:</h2>
+      <ul id="word-list"></ul>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,76 +1,78 @@
-// List of words associated with the theme
-let words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"];
+document.addEventListener("DOMContentLoaded", function() {
 
-// Generate a random theme
-let themes = ["animals", "cities", "sports teams"];
-let theme = themes[Math.floor(Math.random() * themes.length)];
-document.getElementById("theme").innerHTML = theme.toUpperCase();
+  const themes = [
+    { name: "Fruits", words: ["apple", "banana", "cherry", "grape", "orange"] },
+    { name: "Cities", words: ["london", "paris", "tokyo", "berlin", "rome"] },
+    { name: "Sports", words: ["soccer", "basketball", "tennis", "golf", "swimming"] }
+  ];
 
-// Generate a list of all letters required for the words
-let letters = {};
-for (let i = 0; i < words.length; i++) {
-  let word = words[i];
-  for (let j = 0; j < word.length; j++) {
-    let letter = word[j].toUpperCase();
-    if (letter in letters) {
-      letters[letter]++;
-    } else {
-      letters[letter] = 1;
+  let themeIndex = Math.floor(Math.random() * themes.length);
+  let theme = themes[themeIndex];
+  let words = theme.words.slice(0, 5);
+
+  let letterCounts = {};
+  let letterTiles = [];
+
+  words.forEach((word) => {
+    for (let i = 0; i < word.length; i++) {
+      let letter = word.charAt(i);
+      letterCounts[letter] = (letterCounts[letter] || 0) + 1;
     }
-  }
-}
+  });
 
-// Display the letter tiles and counts
-let letterTiles = document.getElementById("letter-tiles");
-for (let letter in letters) {
-  let count = letters[letter];
-  let tile = document.createElement("div");
-  tile.innerHTML = letter;
-  tile.className = "letter-tile";
-  tile.id = "tile-" + letter;
-  let countLabel = document.createElement("div");
-  countLabel.innerHTML = count;
-  countLabel.className = "count-label";
-  tile.appendChild(countLabel);
-  letterTiles.appendChild(tile);
-}
+  // Define tile order in QWERTY keyboard order
+  const tileOrder = "qwertyuiopasdfghjklzxcvbnm".split("");
 
-// Function to submit a word and update the score
-let score = 0;
-function submitWord() {
+  tileOrder.forEach((letter) => {
+    if (letterCounts[letter]) {
+      let count = letterCounts[letter];
+      let tile = document.createElement("div");
+      tile.classList.add("letter-tile");
+      tile.textContent = letter.toUpperCase();
+      let countLabel = document.createElement("div");
+      countLabel.classList.add("count-label");
+      countLabel.textContent = count;
+      tile.appendChild(countLabel);
+      letterTiles.push(tile);
+    }
+  });
+
+  let letterTilesContainer = document.getElementById("letter-tiles");
+  letterTiles.forEach((tile) => {
+    letterTilesContainer.appendChild(tile);
+  });
+
+  let wordForm = document.getElementById("word-form");
   let wordInput = document.getElementById("word-input");
-  let word = wordInput.value.toUpperCase();
-  if (isValidWord(word)) {
-    let wordList = document.getElementById("word-list");
-    let listItem = document.createElement("li");
-    listItem.innerHTML = word;
-    wordList.appendChild(listItem);
-    score += word.length;
-    document.getElementById("score").innerHTML = "Score: " + score;
-    updateLetterCounts(word);
-    wordInput.value = "";
-  } else {
-    alert("Invalid word!");
-  }
-}
+  let wordList = document.getElementById("word-list");
+  let scoreDisplay = document.getElementById("score");
+  let score = 0;
 
-// Function to check if a word is valid
-function isValidWord(word) {
-  for (let i = 0; i < word.length; i++) {
-    let letter = word[i];
-    if (!(letter in letters) || letters[letter] == 0) {
-      return false;
+  wordForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let word = wordInput.value.toLowerCase();
+    if (words.includes(word)) {
+      if (!wordList.querySelector(`li[data-word="${word}"]`)) {
+        let li = document.createElement("li");
+        li.textContent = word;
+        li.setAttribute("data-word", word);
+        wordList.appendChild(li);
+        score += word.length;
+        scoreDisplay.textContent = `Score: ${score}`;
+        // Update tile count
+        for (let i = 0; i < word.length; i++) {
+          let letter = word.charAt(i);
+          let tile = letterTiles.find((tile) => tile.textContent === letter.toUpperCase());
+          if (tile) {
+            let countLabel = tile.querySelector(".count-label");
+            let count = parseInt(countLabel.textContent);
+            countLabel.textContent = count - 1;
+          }
+        }
+      }
     }
-  }
-  return true;
-}
+    wordInput.value = "";
+  });
 
-// Function to update the letter counts after a word is submitted
-function updateLetterCounts(word) {
-  for (let i = 0; i < word.length; i++) {
-    let letter = word[i];
-    letters[letter]--;
-    let countLabel = document.getElementById("tile-" + letter).getElementsByClassName("count-label")[0];
-    countLabel.innerHTML = letters[letter];
-  }
-}
+  document.getElementById("theme-name").textContent = theme.name;
+});
