@@ -1,0 +1,49 @@
+#theme {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#letter-tiles {
+  margin: 20px 0;
+}
+
+.letter-tile {
+  display: inline-block;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.count-label {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+#word-input {
+  font-size: 18px;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#score {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+#word-list {
+  margin-top: 20px;
+  list-style-type: none;
+  padding: 0;
+}
+
+#word-list li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
