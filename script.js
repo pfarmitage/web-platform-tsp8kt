@@ -60,19 +60,30 @@ document.addEventListener("DOMContentLoaded", function() {
         score += word.length;
         scoreDisplay.textContent = `Score: ${score}`;
         // Update tile count
-        for (let i = 0; i < word.length; i++) {
-          let letter = word.charAt(i);
-          let tile = letterTiles.find((tile) => tile.textContent === letter.toUpperCase());
-          if (tile) {
-            let countLabel = tile.querySelector(".count-label");
-            let count = parseInt(countLabel.textContent);
-            countLabel.textContent = count - 1;
-          }
+        updateLetterCounts(word);
+        //for (let i = 0; i < word.length; i++) {
+        //  let letter = word.charAt(i);
+        //  let tile = letterTiles.find((tile) => tile.textContent === letter.toUpperCase());
+        //  if (tile) {
+        //    let countLabel = tile.querySelector(".count-label");
+        //    let count = parseInt(countLabel.textContent);
+        //    countLabel.textContent = count - 1;
+        //  }
         }
       }
     }
     wordInput.value = "";
   });
+
+  // Function to update the letter counts after a word is submitted
+function updateLetterCounts(word) {
+  for (let i = 0; i < word.length; i++) {
+    let letter = word[i];
+    letters[letter]--;
+    let countLabel = document.getElementById("tile-" + letter).getElementsByClassName("count-label")[0];
+    countLabel.innerHTML = letters[letter];
+  }
+}
 
   document.getElementById("theme-name").textContent = theme.name;
 });
