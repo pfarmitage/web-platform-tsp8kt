@@ -95,6 +95,24 @@ function isValidWord(word) {
   return true;
 }
 
+let startTime, endTime, elapsedTime;
+let seconds = 0;
+let timerInterval;
+
+function startTimer() {
+  startTime = new Date().getTime();
+  timerInterval = setInterval(function() {
+    seconds++;
+    document.getElementById("timer").innerHTML = seconds + " seconds";
+  }, 1000);
+  document.getElementById("letter-tiles").style.display = "grid";
+}
+
+function stopTimer() {
+  endTime = new Date().getTime();
+  elapsedTime = (endTime - startTime) / 1000; // in seconds
+}
+
 function submitWord() {
   let wordInput = document.getElementById("word-input");
   let word = wordInput.value.toUpperCase();
@@ -112,7 +130,8 @@ function submitWord() {
     listItem.innerHTML = word + "("+wordScore+")";
     wordList.appendChild(listItem);
     if (percent >= 100) {
-      document.getElementById("score").innerHTML = "You Win!";
+      stopTimer();
+      document.getElementById("score").innerHTML = "You Win! Time: " + elapsedTime + "s";
     } else {
       document.getElementById("score").innerHTML = "Score: " + score + " (" + percent + "%)";
     }
@@ -141,5 +160,9 @@ function updateLetterCounts(word) {
     letters[letter]--;
     let countLabel = document.getElementById("tile-" + letter).getElementsByClassName("count-label")[0];
     countLabel.innerHTML = letters[letter]+ " (" + letterScores[letter] + ")";
+    if (letters[letter] === 0) {
+      let letterTile = document.getElementById("tile-" + letter);
+      letterTile.style.backgroundColor = "#ccc";
+    }
   }
 }
