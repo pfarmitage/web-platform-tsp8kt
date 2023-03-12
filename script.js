@@ -10,7 +10,8 @@ let themeList = [
 //Pick three words 
 let words = [];
 let themes = [];
-for (let i = 0; i < 3; i++) {
+let wordCount = 2;
+for (let i = 0; i < wordCount; i++) {
   let randomIndex = Math.floor(Math.random() * wordList.length);
   let word = wordList[randomIndex];
   let theme = themeList[randomIndex];
@@ -139,6 +140,6 @@ function updateLetterCounts(word) {
     let letter = word[i];
     letters[letter]--;
     let countLabel = document.getElementById("tile-" + letter).getElementsByClassName("count-label")[0];
-    countLabel.innerHTML = letters[letter];
+    countLabel.innerHTML = letters[letter]+ " (" + letterScores[letter] + ")";
   }
 }
