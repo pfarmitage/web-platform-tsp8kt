@@ -1,25 +1,37 @@
-#theme {
-  font-size: 24px;
-  font-weight: bold;
+:root {
+  --primary-color: #ee4b6a;
+  --secondary-color: #0B2429;
+  --accent-color: #9ac2c7;
+  --text-color: #f1f1f1;
 }
 
 #letter-tiles {
-  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-gap: 10px;
+  max-width: 360px; /* maximum width of 3 columns */
 }
 
 .letter-tile {
   display: inline-block;
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background-color: var(--secondary-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 10px;
   padding: 10px;
   margin-right: 10px;
-  font-size: 24px;
+  font-family: 'Gil Sans', sans-serif;
+  font-size: 32px;
   font-weight: bold;
   text-align: center;
+  color: var(--text-color);
 }
 
 .count-label {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.score-label {
   font-size: 12px;
   margin-top: 5px;
 }
@@ -32,7 +44,7 @@
   border-radius: 4px;
 }
 
-#score {
+#score, #targetScore {
   font-size: 18px;
   margin-top: 20px;
 }
