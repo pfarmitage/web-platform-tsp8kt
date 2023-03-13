@@ -447,7 +447,7 @@ for (let i = 0; i < words.length; i++) {
 }
 
 //add target score to page
-document.getElementById('targetScore').innerHTML = 'Target: ' + targetScore;
+//document.getElementById('targetScore').innerHTML = 'Target: ' + targetScore;
 
 // Display the letter tiles and counts
 let letterTiles = document.getElementById('letter-tiles');
@@ -493,7 +493,9 @@ function startTimer() {
     seconds++;
     document.getElementById('timer').innerHTML = seconds + ' seconds';
   }, 1000);
-  document.getElementById('game-board').style.display = 'block';
+  document.getElementById('game-board').style.display = 'flex';
+  document.getElementById('start-button').style.display = 'none';
+
 }
 
 function stopTimer() {
@@ -521,6 +523,8 @@ function submitWord() {
       stopTimer();
       document.getElementById('score').innerHTML =
         'You Win! Time: ' + elapsedTime + 's';
+        clearInterval(timerInterval);
+      alert("You Win! Time: " + elapsedTime + "s");
     } else {
       document.getElementById('score').innerHTML =
         'Score: ' + score + ' (' + percent + '%)';
@@ -597,3 +601,13 @@ function resetLetterCounts() {
 
 // Add a click event listener to the "Try Again" button
 document.getElementById('try-again').addEventListener('click', resetGame);
+
+//Save User Data in local storage
+function saveUserData(playCount, streak) {
+  const userData = {
+    playCount: playCount,
+    streak: streak
+  };
+
+  localStorage.setItem('userData', JSON.stringify(userData));
+}

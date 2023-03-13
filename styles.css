@@ -7,7 +7,11 @@
 
 #game-board {
   display: none;
-}
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  }
 
 #letter-tiles {
   display: grid;
@@ -24,7 +28,7 @@
   padding: 10px;
   margin-right: 10px;
   font-family: 'Gil Sans', sans-serif;
-  font-size: 32px;
+  font-size: 48px;
   font-weight: bold;
   text-align: center;
   color: var(--text-color);
@@ -62,4 +66,51 @@
 #word-list li {
   font-size: 18px;
   margin-bottom: 10px;
+}
+
+button {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #555;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* Apply a mobile-first approach by targeting screens smaller than 600px */
+@media (max-width: 600px) {
+  /* Set font size to 16px for better readability on smaller screens */
+  body {
+    font-size: 16px;
+  }
+
+  /* Set the width of the letter tiles to 100% of the available space */
+  #letter-tiles {
+    width: 100%;
+    max-width: none;
+  }
+  
+  /* Center the word input and submit button */
+  #word-input,
+  button {
+    margin: 10px auto;
+    display: block;
+  }
+  
+
 }
