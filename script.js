@@ -498,6 +498,7 @@ function shuffleArray(array) {
 // Function to submit a word and update the score
 let score = 0;
 let percent = 0;
+let tryAgainCount = 0;
 let submittedWords = [];
 
 //Timer
