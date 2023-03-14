@@ -11,7 +11,6 @@ if (!localStorage.getItem("userData")) {
 
 // get user data from local storage and parse to JSON
 let userData = JSON.parse(localStorage.getItem("userData"));
-document.getElementById("win-count").innerHTML = userData.winCount;
 document.getElementById("play-count").innerHTML = userData.playCount;
 document.getElementById("win-count").innerHTML = userData.winCount;
 document.getElementById("streak-count").innerHTML = userData.streak;
@@ -405,7 +404,7 @@ for (let i = 0; i < wordCount; i++) {
   let theme = themeList[randomIndex];
   if (!words.includes(word)) {
     words.push(word);
-    themes += theme + ' ';
+    themes += theme + ' (' + word.length + ') ';
   } else {
     i--;
   }
@@ -500,6 +499,7 @@ let score = 0;
 let percent = 0;
 let tryAgainCount = 0;
 let submittedWords = [];
+const crosses = document.querySelectorAll('#crosses li');
 
 //Timer
 let startTime, endTime, elapsedTime;
@@ -554,8 +554,13 @@ function submitWord() {
       clearInterval(timerInterval);
       //increment winCount
       userData.winCount++;
+      userData.streak++;
       localStorage.setItem("userData", JSON.stringify(userData));
       document.getElementById("win-count").innerHTML = userData.winCount;
+      document.getElementById("streak-count").innerHTML = userData.streak;
+      document.getElementById('submit-form').style.display = 'none';
+      document.getElementById('win-tick').style.display = 'flex';
+      document.getElementById('crosses').style.display = 'none';
 
       alert("You Win! Time: " + elapsedTime + "s");
     } else {
@@ -628,6 +633,16 @@ function resetLetterCounts() {
     letterTile.style.backgroundColor = 'var(--secondary-color)';
   });
   letters = originalLetters;
+  tryAgainCount++;
+  crosses[tryAgainCount-1].classList.add('red');
+  if (tryAgainCount === 3) {
+    userData.streak=0;
+    document.getElementById("streak-count").innerHTML = userData.streak;
+    localStorage.setItem("userData", JSON.stringify(userData));
+    stopTimer();
+    document.getElementById('submit-form').style.display = 'none';
+    alert('You lose');
+  }
 }
 
 // Add a click event listener to the "Try Again" button

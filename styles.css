@@ -44,12 +44,56 @@
   margin-top: 5px;
 }
 
+#submit-form {
+  display: flex;
+  align-items: center;
+}
+
 #word-input {
+  flex: 1;
+  margin-right: 10px;
   font-size: 18px;
   padding: 10px;
   margin: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+#game-board button {
+  margin-left: 10px;
+}
+
+#game-board button i {
+  font-size: 20px;
+}
+
+#try-again i {
+  font-size: 25px;
+}
+
+#crosses {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#crosses li {
+  list-style: none;
+  font-size: 48px;
+  color: #ccc;
+  margin: 0 10px;
+}
+
+#crosses li.red {
+  color: red;
+}
+
+#win-tick {
+  display: none;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 48px;
+  color: rgb(68, 204, 50);
 }
 
 #score, #targetScore {
