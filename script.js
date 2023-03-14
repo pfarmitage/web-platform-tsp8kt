@@ -11,6 +11,10 @@ if (!localStorage.getItem("userData")) {
 
 // get user data from local storage and parse to JSON
 let userData = JSON.parse(localStorage.getItem("userData"));
+document.getElementById("win-count").innerHTML = userData.winCount;
+document.getElementById("play-count").innerHTML = userData.playCount;
+document.getElementById("win-count").innerHTML = userData.winCount;
+document.getElementById("streak-count").innerHTML = userData.streak;
 
 // List of words associated with the theme
 //import { wordList,themeList } from './wordlist.js';
