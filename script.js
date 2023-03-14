@@ -1,3 +1,17 @@
+// check if there is user data in local storage
+if (!localStorage.getItem("userData")) {
+  // if not, initialize with playCount = 0, winCount and streak = 0
+  let userData = {
+    playCount: 0,
+    winCount: 0,
+    streak: 0
+  };
+  localStorage.setItem("userData", JSON.stringify(userData));
+}
+
+// get user data from local storage and parse to JSON
+let userData = JSON.parse(localStorage.getItem("userData"));
+
 // List of words associated with the theme
 //import { wordList,themeList } from './wordlist.js';
 const wordList = [
@@ -493,6 +507,13 @@ function startTimer() {
     seconds++;
     document.getElementById('timer').innerHTML = seconds + ' seconds';
   }, 1000);
+  //increment playCount
+  userData.playCount++;
+  localStorage.setItem("userData", JSON.stringify(userData));
+  document.getElementById("win-count").innerHTML = userData.winCount;
+  document.getElementById("play-count").innerHTML = userData.playCount;
+  document.getElementById("win-count").innerHTML = userData.winCount;
+  document.getElementById("streak-count").innerHTML = userData.streak;
   document.getElementById('game-board').style.display = 'flex';
   document.getElementById('start-button').style.display = 'none';
 
@@ -519,18 +540,23 @@ function submitWord() {
     let listItem = document.createElement('li');
     listItem.innerHTML = word + '(' + wordScore + ')';
     wordList.appendChild(listItem);
+    updateLetterCounts(word);
+    wordInput.value = '';
     if (percent >= 100) {
       stopTimer();
       document.getElementById('score').innerHTML =
         'You Win! Time: ' + elapsedTime + 's';
-        clearInterval(timerInterval);
+      clearInterval(timerInterval);
+      //increment winCount
+      userData.winCount++;
+      localStorage.setItem("userData", JSON.stringify(userData));
+      document.getElementById("win-count").innerHTML = userData.winCount;
+
       alert("You Win! Time: " + elapsedTime + "s");
     } else {
       document.getElementById('score').innerHTML =
         'Score: ' + score + ' (' + percent + '%)';
     }
-    updateLetterCounts(word);
-    wordInput.value = '';
   } else {
     //alert('Not enough letters or not in word list!');
   }
