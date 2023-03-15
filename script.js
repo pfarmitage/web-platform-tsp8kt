@@ -478,6 +478,7 @@ for (let i = 0; i < tileOrder.length; i++) {
     tile.innerHTML = letter;
     tile.className = 'letter-tile';
     tile.id = 'tile-' + letter;
+    tile.onclick ='typeLetter('+ letter +')';
     let countLabel = document.createElement('div');
     countLabel.innerHTML = count + ' (' + letterScores[letter] + ')';
     countLabel.className = 'count-label';
@@ -493,6 +494,12 @@ function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+function typeLetter(letter) {
+  var inputField = document.getElementById("word-input");
+  inputField.value += letter;
+}
+
 
 // Function to submit a word and update the score
 let score = 0;
