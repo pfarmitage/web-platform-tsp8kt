@@ -29,8 +29,10 @@
       <div id="letter-tiles"></div>
       <div id="submit-form">
         <input type="text" id="word-input" placeholder="Enter a word">
+        <button id="backspace" onclick="deleteLetter()"class="hidden"><i class="fas fa-backspace"></i></button>
         <button id="submit-word" onclick="submitWord()"><i class="fas fa-arrow-right"></i></button>
         <button id="try-again" class="hidden"><i class="fas fa-redo"></i></button>
+
       </div>
       <ul id="crosses">
         <li><i class="fas fa-times"></i></li>

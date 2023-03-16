@@ -394,14 +394,65 @@ const themeList = [
   'furniture',
   'furniture',
 ];
+const wordObjects = [
+  { word: 'amber', theme: 'colors' },
+  { word: 'beach', theme: 'nature' },
+  { word: 'bison', theme: 'animals' },
+  { word: 'bloom', theme: 'nature' },
+  { word: 'cabin', theme: 'buildings' },
+  { word: 'cactus', theme: 'plants' },
+  { word: 'canoe', theme: 'vehicles' },
+  { word: 'cedar', theme: 'plants' },
+  { word: 'chirp', theme: 'sounds' },
+  { word: 'cliff', theme: 'nature' },
+  { word: 'comet', theme: 'space' },
+  { word: 'coral', theme: 'ocean' },
+  { word: 'crisp', theme: 'food' },
+  { word: 'crowd', theme: 'people' },
+  { word: 'daisy', theme: 'plants' },
+  { word: 'dough', theme: 'food' },
+  { word: 'drift', theme: 'nature' },
+  { word: 'eagle', theme: 'animals' },
+  { word: 'emery', theme: 'materials' },
+  { word: 'flame', theme: 'fire' },
+  { word: 'frost', theme: 'weather' },
+  { word: 'glaze', theme: 'food' },
+  { word: 'gloom', theme: 'feelings' },
+  { word: 'grape', theme: 'fruit' },
+  { word: 'hazel', theme: 'colors' },
+  { word: 'honey', theme: 'food' },
+  { word: 'hound', theme: 'animals' },
+  { word: 'jolly', theme: 'feelings' },
+  { word: 'kayak', theme: 'vehicles' },
+  { word: 'laser', theme: 'technology' },
+  { word: 'lemon', theme: 'fruit' },
+  { word: 'lunar', theme: 'space' },
+  { word: 'maple', theme: 'plants' },
+  { word: 'melon', theme: 'fruit' },
+  { word: 'oasis', theme: 'nature' },
+  { word: 'olive', theme: 'fruit' },
+  { word: 'opera', theme: 'music' },
+  { word: 'peach', theme: 'fruit' },
+  { word: 'pearl', theme: 'materials' },
+  { word: 'petal', theme: 'plants' },
+  { word: 'quilt', theme: 'materials' },
+  { word: 'raven', theme: 'animals' },
+  { word: 'sable', theme: 'animals' },
+  { word: 'scoop', theme: 'utensils' },
+  { word: 'skate', theme: 'vehicles' },
+  { word: 'snack', theme: 'food' },
+  { word: 'spice', theme: 'food' },
+  { word: 'swirl', theme: 'shapes' },
+];
+
 //Pick three words
 let words = [];
 let themes = [];
 let wordCount = 2;
 for (let i = 0; i < wordCount; i++) {
-  let randomIndex = Math.floor(Math.random() * wordList.length);
-  let word = wordList[randomIndex];
-  let theme = themeList[randomIndex];
+  let randomIndex = Math.floor(Math.random() * wordObjects.length);
+  let word = wordObjects[randomIndex].word;
+  let theme = wordObjects[randomIndex].theme;
   if (!words.includes(word)) {
     words.push(word);
     themes += theme + ' (' + word.length + ') ';
@@ -478,7 +529,9 @@ for (let i = 0; i < tileOrder.length; i++) {
     tile.innerHTML = letter;
     tile.className = 'letter-tile';
     tile.id = 'tile-' + letter;
-    tile.onclick ='typeLetter('+ letter +')';
+    tile.onclick = function() {
+      typeLetter(letter);
+    };
     let countLabel = document.createElement('div');
     countLabel.innerHTML = count + ' (' + letterScores[letter] + ')';
     countLabel.className = 'count-label';
@@ -498,6 +551,11 @@ function shuffleArray(array) {
 function typeLetter(letter) {
   var inputField = document.getElementById("word-input");
   inputField.value += letter;
+}
+
+function deleteLetter(letter) {
+  var inputField = document.getElementById("word-input");
+  inputField.value = inputField.value.slice(0, -1);
 }
 
 
@@ -579,24 +637,32 @@ function submitWord() {
   }
 }
 
-// Function to check if a word is valid
 function isValidWord(word) {
+  // Check if the word is valid based on available letters
   for (let i = 0; i < word.length; i++) {
     let letter = word[i];
     if (!(letter in letters) || letters[letter] == 0) {
-      console.log(letters)
       alert('Not enough letters');
       return false;
     }
+    letters[letter]--; // Subtract one from the available count for each letter used
   }
-  // Check if the word is in the word list
+  // Check if the word is in the wordObjects list
   let lowerCaseWord = word.toLowerCase();
-  if (!wordList.includes(lowerCaseWord)) {
-    alert("Not in word list!")
+  let isValid = false;
+  for (let i = 0; i < wordObjects.length; i++) {
+    if (wordObjects[i].word === lowerCaseWord) {
+      isValid = true;
+      break;
+    }
+  }
+  if (!isValid) {
+    alert("Not in word list!");
     return false;
   }
   return true;
 }
+
 
 // Function to update the letter counts after a word is submitted
 function updateLetterCounts(word) {
