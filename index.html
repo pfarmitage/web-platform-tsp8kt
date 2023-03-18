@@ -6,7 +6,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   </head>
   <body>
-    <h1>WordSplit</h1>
+    <header>
+      <h1>WordSplit</h1>
+      <div>
+        <span class="header-icon" title="Instructions">&#63;</span>
+      </div>
+    </header>
+
+    <div id="instructions-modal">
+      <div class="modal-content">
+        <h2>Instructions</h2>
+        <p>Here are the instructions for the game:</p>
+        <ul>
+          <li>Guess the word before the hangman is complete.</li>
+          <li>You can guess one letter at a time.</li>
+          <li>If you guess incorrectly six times, the game is over.</li>
+        </ul>
+        <button id="close-modal">Close</button>
+      </div>
+    </div>
+
     <div id="scoreboard">
       <div class="score-item">
         <div class="score-label">Plays:</div>
@@ -21,7 +40,7 @@
         <div id="streak-count" class="score-number"></div>
       </div>
     </div>
-    <button id="start-button" onclick="startTimer()">Start</button>
+    <button id="start-button" onclick="startTimer()">Play</button>
     <!--<p id="targetScore">Target: 0</p>-->
     <div id="game-board">
       <h3 id="themes"></h3>
@@ -41,11 +60,11 @@
       </ul>
       <div id="win-tick" ><i class="fas fa-check"></i></div>
 
-      <p id="score">Score: 0</p>
-      <ul id="word-list"></ul>
+      <!--<p id="score">Score: 0</p>-->
+      <ul id="submitted-list"></ul>
     </div>
     
-    
+    <script src="words.js"></script>   
     <script src="script.js" ></script>
     <script>
       document.getElementById("word-input").addEventListener("keydown", function(event) {
