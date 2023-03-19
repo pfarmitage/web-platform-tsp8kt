@@ -15,15 +15,27 @@ document.getElementById("play-count").innerHTML = userData.playCount;
 document.getElementById("win-count").innerHTML = userData.winCount;
 document.getElementById("streak-count").innerHTML = userData.streak;
 
-const instructionsButton = document.querySelector('.header-icon');
+const statisticsButton = document.querySelector('.statistics-icon');
+const statisticsModal = document.querySelector('#statistics-modal');
+
+const instructionsButton = document.querySelector('.instructions-icon');
 const instructionsModal = document.querySelector('#instructions-modal');
-const closeModalButton = document.querySelector('#close-modal');
+const closeStatsButton = document.querySelector('#close-stats');
+const closeInstructionsButton = document.querySelector('#close-instructions');
+
+statisticsButton.addEventListener('click', () => {
+  statisticsModal.style.display = 'block';
+});
+
+closeStatsButton.addEventListener('click', () => {
+  statisticsModal.style.display = 'none';
+});
 
 instructionsButton.addEventListener('click', () => {
   instructionsModal.style.display = 'block';
 });
 
-closeModalButton.addEventListener('click', () => {
+closeInstructionsButton.addEventListener('click', () => {
   instructionsModal.style.display = 'none';
 });
 
@@ -137,6 +149,37 @@ function shuffleArray(array) {
   }
 }
 
+function shuffleTiles() {
+  // Remove the tiles
+  const tiles = document.querySelectorAll('.letter-tile');
+  tiles.forEach(tile => tile.parentNode.removeChild(tile));
+  shuffleArray(tileOrder);
+  for (let i = 0; i < tileOrder.length; i++) {
+    let letter = tileOrder[i];
+    if (letter in letters) {
+      let count = letters[letter];
+      let tile = document.createElement('div');
+      tile.innerHTML = letter;
+      tile.className = 'letter-tile';
+      tile.id = 'tile-' + letter;
+      tile.onclick = function() {
+        typeLetter(letter);
+      };
+      let countLabel = document.createElement('div');
+      countLabel.innerHTML = count + ' (' + letterScores[letter] + ')';
+      countLabel.className = 'count-label';
+      tile.appendChild(countLabel);
+      letterTiles.appendChild(tile);
+      if (letters[letter] === 0) {
+        let letterTile = document.getElementById('tile-' + letter);
+        letterTile.style.backgroundColor = '#ccc';
+      }
+    }
+  }
+
+}
+
+
 function typeLetter(letter) {
   var inputField = document.getElementById("word-input");
   inputField.value += letter;
@@ -176,7 +219,7 @@ function startTimer() {
   document.getElementById("win-count").innerHTML = userData.winCount;
   document.getElementById("streak-count").innerHTML = userData.streak;
   document.getElementById('game-board').style.display = 'flex';
-  document.getElementById('start-button').style.display = 'none';
+  document.getElementById('start-modal').style.display = 'none';
 }
 
 function stopTimer() {
