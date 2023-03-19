@@ -3,24 +3,30 @@
   <head>
     <title>WordSplit</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   </head>
   <body>
-    <h1>WordSplit</h1>
-    <button id="start-button" onclick="startTimer()">Start</button>
-    
-    <!--<p id="targetScore">Target: 0</p>-->
-    <div id="game-board">
-      <h3 id="themes"></h3>
-      <div id="timer">0 seconds</div>
-      <div id="letter-tiles"></div>
-      <input type="text" id="word-input" placeholder="Enter a word">
-      <button onclick="submitWord()">Submit</button>
-      <button id="try-again" class="hidden">Try Again</button>
-      
-      
-      <p id="score">Score: 0</p>
-      <ul id="word-list"></ul>
+    <header>
+      <h1>WordSplit</h1>
+      <div>
+        <span class="header-icon" title="Instructions">&#63;</span>
+      </div>
+    </header>
+
+    <div id="instructions-modal">
+      <div class="modal-content">
+        <h2>Instructions</h2>
+        <p>Here are the instructions for the game:</p>
+        <ul>
+          <li>The tiles contain the letters for two words.</li>
+          <li>Enter your guesses for the words and press submit.</li>
+          <li>Win if you use all of the letters.</li>
+          <li>You press retry if you have guessed the wrong word, and have three goes to win.</li>
+        </ul>
+        <button id="close-modal">Close</button>
+      </div>
     </div>
+
     <div id="scoreboard">
       <div class="score-item">
         <div class="score-label">Plays:</div>
@@ -35,7 +41,31 @@
         <div id="streak-count" class="score-number"></div>
       </div>
     </div>
+    <button id="start-button" onclick="startTimer()">Play</button>
+    <!--<p id="targetScore">Target: 0</p>-->
+    <div id="game-board">
+      <h3 id="themes"></h3>
+      <div id="timer">0 seconds</div>
+      <div id="letter-tiles"></div>
+      <div id="submit-form">
+        <input type="text" id="word-input" placeholder="Enter a word">
+        <button id="backspace" onclick="deleteLetter()"class="hidden"><i class="fas fa-backspace"></i></button>
+        <button id="submit-word" onclick="submitWord()"><i class="fas fa-arrow-right"></i></button>
+        <button id="try-again" class="hidden"><i class="fas fa-redo"></i></button>
+
+      </div>
+      <ul id="crosses">
+        <li><i class="fas fa-times"></i></li>
+        <li><i class="fas fa-times"></i></li>
+        <li><i class="fas fa-times"></i></li>
+      </ul>
+      <div id="win-tick" ><i class="fas fa-check"></i></div>
+
+      <!--<p id="score">Score: 0</p>-->
+      <ul id="submitted-list"></ul>
+    </div>
     
+    <script src="words.js"></script>   
     <script src="script.js" ></script>
     <script>
       document.getElementById("word-input").addEventListener("keydown", function(event) {
