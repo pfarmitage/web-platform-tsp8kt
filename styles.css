@@ -156,17 +156,17 @@ header {
   margin-top: 20px;
 }
 
-#word-list {
+#submitted-list {
   margin-top: 20px;
   list-style-type: none;
   padding: 0;
-}
-
-#word-list li {
+  }
+  
+  #submitted-list li {
   font-size: 18px;
   margin-bottom: 10px;
   list-style: none;
-}
+  }
 
 button {
   display: block;

@@ -27,7 +27,7 @@ var wordObjectsList = [
   { word: 'rome', theme: 'cities' },
   { word: 'oslo', theme: 'cities' },
   { word: 'boston', theme: 'cities' },
-  { word: 'viena', theme: 'cities' },
+  { word: 'vienna', theme: 'cities' },
   { word: 'munich', theme: 'cities' },
   { word: 'apple', theme: 'fruits' },
   { word: 'banana', theme: 'fruits' },
